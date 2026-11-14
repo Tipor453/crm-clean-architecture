@@ -1,0 +1,35 @@
+classDiagram
+    class Client {
+        -int id
+        -string name
+        -string phone
+        -string email
+        -string extraInfo
+        +updateInfo(newInfo: string) void
+    }
+    class Manager {
+        -int id
+        -string name
+        +getId() int
+    }
+    class Deal {
+        -int id
+        -string title
+        -decimal amount
+        -string stage
+        -DateTime createdAt
+        +changeStage(newStage: string) void
+        +close(isWon: bool) void
+    }
+    class Task {
+        -int id
+        -string description
+        -DateTime deadline
+        -bool isCompleted
+        +complete() void
+        +isOverdue() bool
+    }
+    Client "1" --> "0..*" Deal : имеет
+    Manager "1" --> "0..*" Deal : ведет
+    Deal "1" --> "0..*" Task : содержит
+    Client "1" --> "0..*" Task : содержит

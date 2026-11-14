@@ -1,0 +1,21 @@
+flowchart TD
+    subgraph Infrastructure_Layer [Слой Infrastructure]
+        direction TB
+        Repo1[InMemoryDealRepository]
+        Repo2[InMemoryClientRepository]
+    end
+    subgraph Application_Layer [Слой Application]
+        direction TB
+        Int1((IDealRepository))
+        Int2((IClientRepository))
+        UseCase[CloseDealUseCase]
+    end
+    subgraph Domain_Layer [Слой Domain]
+        direction TB
+        EntityDeal[Deal]
+        EntityClient[Client]
+    end
+    Repo1 -.->|Реализация| Int1
+    Repo2 -.->|Реализация| Int2
+    UseCase -->|Зависимость| Int1
+    UseCase -->|Использует| EntityDeal

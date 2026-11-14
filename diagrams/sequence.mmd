@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor Manager
+    participant Controller
+    participant UseCase as CloseDealUseCase
+    participant Repo as IDealRepository
+    participant DB as InMemoryRepo
+    Manager->>Controller: closeDeal(dealId, isWon)
+    Controller->>UseCase: execute(dealId, isWon)
+    UseCase->>Repo: getById(dealId)
+    Repo->>DB: find(dealId)
+    DB-->>Repo: Deal
+    Repo-->>UseCase: Deal
+    UseCase->>UseCase: deal.close(isWon)
+    UseCase->>Repo: save(deal)
+    Repo->>DB: update(deal)
+    DB-->>Repo: OK
+    UseCase-->>Controller: Success
+    Controller-->>Manager: Сделка закрыта
